@@ -26,7 +26,12 @@ const todosSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [fetchTodos.fulfilled]: (state, action) => action.payload,
+    [fetchTodos.fulfilled]: (state, action) => {
+      const colors = ["Red", "Yellow", "Green", "Blue", "Orange", "Purple", null];
+      const randomColor = colors[[Math.floor(Math.random() * colors.length)]];
+      const newArr = action.payload.map(todo => todo['color'] = randomColor);
+      return newArr;
+    },
     [createTodo.fulfilled]: (state, action) => state.todos.push(action.payload),
     [deleteTodo.fulfilled]: (state, action) =>
       state.todos.filter((todo) => todo.id !== action.payload),
