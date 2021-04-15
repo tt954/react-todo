@@ -8,6 +8,7 @@ import TodoFilters from './components/TodoFilters/TodoFilters';
 
 const App = () => {
   const todos = useSelector(state => state.todos);
+  console.log(todos)
 
   return (
     <div className="App">

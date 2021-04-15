@@ -10,9 +10,21 @@ Example of todo object:
     "userId": 1,
     "id": 1,
     "title": "delectus aut autem",
-    "completed": false
+    "completed": false,
+    "color": "Yellow";
 }
+Color options: ["Red", "Yellow", "Green", "Blue", "Orange", "Purple", null]
 
+All possible actions:
+Add a new todo entry based on the text the user entered
+Toggle the completed status of a todo
+Select a color category for a todo
+Delete a todo
+Mark all todos as completed
+Clear all completed todos
+Choose a different "completed" filter value
+Add a new color filter
+Remove a color filter
 
 
 
