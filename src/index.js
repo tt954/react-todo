@@ -5,23 +5,17 @@ import { Provider } from "react-redux";
 import './index.css';
 import App from './App';
 import store from './store/store';
+import { fetchTodos } from './reducers/todosReducer';
 
 import reportWebVitals from './reportWebVitals';
 
-import { todo } from './api/todoAPI';
-import { fetchTodos } from './reducers/todosReducer';
-
 document.addEventListener('DOMContentLoaded', () => {
-  window.todo = todo;
-  window.fetchTodos = fetchTodos;
-
-  window.store = store;
+  store.dispatch(fetchTodos());
 
   ReactDOM.render(
-    // <Provider store={store}>
-    //   <App />
-    // </Provider>,
-    <h1>hello world</h1>,
+    <Provider store={store}>
+      <App />
+    </Provider>,
     document.getElementById('root')
   );
 })

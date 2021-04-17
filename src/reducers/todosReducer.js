@@ -1,29 +1,28 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  createAsyncThunk,
+  createEntityAdapter,
+} from "@reduxjs/toolkit";
 import { todo } from "../api/todoAPI";
+import { generateRandomColor } from '../utils/helpers';
 
-const initialState = {
-  status: 'idle',
-  entities: {},
-};
+// createEntityAdapter: gives us an "adapter" object that contains several premade reducer functions
+// getInitialState: returns an object that looks like { ids: [], entities: {} }, 
+// for storing a normalized state of items along with an array of all item IDs
+// getSelectors: generates a standard set of selector functions
+const todosAdapter = createEntityAdapter()
+const initialState = todosAdapter.getInitialState({ status: 'idle' })
 
-// async thunk functions
+// async thunk action creators
 export const fetchTodos = createAsyncThunk(
   "todos/fetchTodos",
-  async () => {
-    const response = await todo.getAll()
-    return response
-  }
+  () => todo.getAll().then(response => response) 
 );
-export const createTodo = createAsyncThunk(
+
+export const saveNewTodo = createAsyncThunk(
   "todos/createTodo",
-  async (todoText) => {
-    return await addTodo(todoText);
-  }
-);
-export const deleteTodo = createAsyncThunk(
-  "todos/deleteTodo",
-  async (todoId) => {
-    await removeTodo(todoId);
+  async (newTodo) => {
+    return await todo.post({...newTodo}).then(response => response);
   }
 );
 
@@ -36,29 +35,32 @@ const todosSlice = createSlice({
   name: "todos",
   initialState,
   reducers: {
+    todoDeleted: todosAdapter.removeOne,
     todoToggled(state, action) {
       const todo = state.find((todo) => todo.id === action.payload);
       todo.completed = !todo.completed;
-    }
+    },
   },
   extraReducers: {
+    [fetchTodos.pending]: (state, action) => {
+      state.status = "loading";
+    },
     [fetchTodos.fulfilled]: (state, action) => {
-      // add a random color from array below as to the color property of todos 
-      const colors = ["Red", "Yellow", "Green", "Blue", "Orange", "Purple", null];
-      let todos = action.payload.filter((todo) => todo.id <= 5);
-      return todos.map(todo => {
-        let newTodo = Object.assign({}, todo)
-        newTodo.color = colors[[Math.floor(Math.random() * colors.length)]];
-        return newTodo;
+      const newEntities = {};
+      action.payload.slice(0, 6).forEach((todo) => {
+        newEntities[todo.id] = todo;
+        newEntities[todo.id]["color"] = generateRandomColor();
       });
+      state.entities = newEntities;
+      state.status = "idle";
     },
-    [createTodo.fulfilled]: (state, action) => {
-      const todo = action.payload
-      state.entities[todo.id] = todo
-    },
-    [deleteTodo.fulfilled]: (state, action) =>
-      state.todos.filter((todo) => todo.id !== action.payload),
+    [saveNewTodo.fulfilled]: todosAdapter.addOne,
   },
 });
+
+export const {
+  todoDeleted,
+  todoToggled,
+} = todosSlice.actions;
 
 export default todosSlice.reducer;

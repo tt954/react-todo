@@ -31,11 +31,6 @@ todo.post = function (body, customConfig = {}) {
   return todo(endpoint, { ...customConfig, body })
 }
 
-todo.delete = function(id, customConfig = {}) {
-  return todo([endpoint, id].join('/'), { ...customConfig, method: 'DELETE'})
-}
-
-
 // api template from https://jsonplaceholder.typicode.com/
 // export const getTodos = () =>
 //   fetch(endpoint).then((res) => res.json());

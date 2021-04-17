@@ -1,8 +1,6 @@
 import React from "react";
 import store from '../../store/store';
 
-import { addTodo } from '../../api/todoAPI';
-import { createTodo } from '../../reducers/todosReducer';
 
 class TodoForm extends React.Component {
   state = {
@@ -11,9 +9,6 @@ class TodoForm extends React.Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
-    const newTodo = this.state.inputText;
-    // await store.dispatch(createTodo(newTodo));
-    window.addTodo = addTodo;
     this.setState({ inputText: '' });
   };
 
