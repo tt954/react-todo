@@ -1,11 +1,33 @@
-const baseUrl = "https://jsonplaceholder.typicode.com";
-const todoPath = "todos";
+const endpoint = "https://jsonplaceholder.typicode.com/todos";
 
-export const getAllTodos = () =>
-  fetch([baseUrl, todoPath].join('/')).then((res) => res.json());
+export async function todo(endpoint, { body, ...customConfig }  = {}) {
+  const headers = { "Content-type": "application/json; charset=UTF-8", }
+  const config = {
+    method: body ? 'POST' : 'GET',
+    ...customConfig,
+    headers: {
+      ...headers,
+      ...customConfig.headers,
+    }
+  }
+  if (body) { config.body = JSON.stringify(body) }
+
+  let data
+  try {
+    const response = await window.fetch(endpoint, config)
+    data = await response.json()
+    if (response.ok) return data
+    throw new Error(response.statusText)
+  } catch (err) {
+    return Promise.reject(err.message ? message : data)
+  }
+}
+
+export const getTodos = () =>
+  fetch(endpoint).then((res) => res.json());
 
 export const addTodo = (newTodo) =>
-  fetch([baseUrl, todoPath].join("/"), {
+  fetch(endpoint, {
     method: "POST",
     body: JSON.stringify(newTodo),
     headers: {
@@ -14,6 +36,6 @@ export const addTodo = (newTodo) =>
   }).then((res) => res.json());
 
 export const removeTodo = (id) =>
-  fetch([baseUrl, todoPath, id].join("/"), {
+  fetch([endpoint, id].join("/"), {
     method: "DELETE",
   }).then((res) => res.json());

@@ -8,18 +8,17 @@ import TodoFilters from './components/TodoFilters/TodoFilters';
 
 const App = () => {
   const todos = useSelector(state => state.todos);
-  console.log(todos)
 
   return (
     <div className="App">
       <header className="header">
         <h1 className="header__heading">To Do List </h1>
       </header>
-      <main className="content">
+      {/* <main className="content">
         <TodoForm />
         <TodoList todos={todos}/>
         <TodoFilters />
-      </main>
+      </main> */}
     </div>
   )
 }
