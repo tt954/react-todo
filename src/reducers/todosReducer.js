@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getTodos, addTodo, removeTodo } from "../api/todoAPI";
+import { todo } from "../api/todoAPI";
 
 const initialState = {
   status: 'idle',
@@ -9,7 +9,10 @@ const initialState = {
 // async thunk functions
 export const fetchTodos = createAsyncThunk(
   "todos/fetchTodos",
-  async () => await getTodos()
+  async () => {
+    const response = await todo.getAll()
+    return response
+  }
 );
 export const createTodo = createAsyncThunk(
   "todos/createTodo",

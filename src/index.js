@@ -8,13 +8,11 @@ import store from './store/store';
 
 import reportWebVitals from './reportWebVitals';
 
-import { getTodos, addTodo, removeTodo } from './api/todoAPI';
+import { todo } from './api/todoAPI';
 import { fetchTodos } from './reducers/todosReducer';
 
 document.addEventListener('DOMContentLoaded', () => {
-  window.getTodos = getTodos;
-  window.addTodo = addTodo;
-  window.removeTodo = removeTodo;
+  window.todo = todo;
   window.fetchTodos = fetchTodos;
 
   window.store = store;

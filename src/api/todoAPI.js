@@ -19,23 +19,37 @@ export async function todo(endpoint, { body, ...customConfig }  = {}) {
     if (response.ok) return data
     throw new Error(response.statusText)
   } catch (err) {
-    return Promise.reject(err.message ? message : data)
+    return Promise.reject(err.message ? err.message : data)
   }
 }
 
-export const getTodos = () =>
-  fetch(endpoint).then((res) => res.json());
+todo.getAll = function (customConfig = {}) {
+  return todo(endpoint, {...customConfig, method: 'GET'})
+}
 
-export const addTodo = (newTodo) =>
-  fetch(endpoint, {
-    method: "POST",
-    body: JSON.stringify(newTodo),
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
-    },
-  }).then((res) => res.json());
+todo.post = function (body, customConfig = {}) {
+  return todo(endpoint, { ...customConfig, body })
+}
 
-export const removeTodo = (id) =>
-  fetch([endpoint, id].join("/"), {
-    method: "DELETE",
-  }).then((res) => res.json());
+todo.delete = function(id, customConfig = {}) {
+  return todo([endpoint, id].join('/'), { ...customConfig, method: 'DELETE'})
+}
+
+
+// api template from https://jsonplaceholder.typicode.com/
+// export const getTodos = () =>
+//   fetch(endpoint).then((res) => res.json());
+
+// export const addTodo = (newTodo) =>
+//   fetch(endpoint, {
+//     method: "POST",
+//     body: JSON.stringify(newTodo),
+//     headers: {
+//       "Content-type": "application/json; charset=UTF-8",
+//     },
+//   }).then((res) => res.json());
+
+// export const removeTodo = (id) =>
+//   fetch([endpoint, id].join("/"), {
+//     method: "DELETE",
+//   }).then((res) => res.json());
