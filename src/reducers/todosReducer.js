@@ -38,13 +38,13 @@ const todosSlice = createSlice({
   reducers: {
     todoDeleted: todosAdapter.removeOne,
     todoToggled(state, action) {
-      const todo = state.find((todo) => todo.id === action.payload);
-      todo.completed = !todo.completed;
+      const todo = state.entities[action.payload]
+      todo.completed = !todo.completed
     },
   },
   extraReducers: {
     [fetchTodos.pending]: (state, action) => {
-      state.status = "loading";
+      state.status = "loading"
     },
     [fetchTodos.fulfilled]: (state, action) => {
       const newEntities = {};
