@@ -1,18 +1,20 @@
 import { useDispatch } from "react-redux";
 
-import { filters } from "../../../reducers/filtersReducer";
+import { filters, statusFilterChanged } from "../../../reducers/filtersReducer";
 
 const StatusFilter = (props) => {
-    const dispatch = useDispatch()
-    const handleStatusChange = value => {
-        
-    }
+  const dispatch = useDispatch();
+
+  const handleStatusChange = (value) => {
+      console.log(value)
+    dispatch(statusFilterChanged(value));
+  };
 
   const statuses = Object.keys(filters.statuses).map((key) => {
-    const value = filters.statuses[key]
+    const value = filters.statuses[key];
     return (
       <li key={value}>
-        <button onClick={handleStatusChange}>{key}</button>
+        <button onClick={() => handleStatusChange(value)}>{key}</button>
       </li>
     );
   });
