@@ -1,18 +1,19 @@
 import { useSelector } from 'react-redux';
 
 import TodoItem from "./todoitem/TodoItem";
-import { selectTodos } from '../../reducers/todosReducer';
+import { selectFilteredTodoIds } from '../../reducers/todosReducer';
 import './todo-list.css';
 
-const TodoList = (props) => {
-  const todos = useSelector(state => selectTodos(state))
+const TodoList = () => {
+  const todoIds = useSelector(selectFilteredTodoIds)
+  const loadingStatus = useSelector(state => state.todos.status)
 
   return (
     <section className="todo__content">
       <ul>
-        {todos.map(todo =>
-          <TodoItem key={todo.id} todo={todo}/>
-        )}
+        {todoIds.map((todoId) => (
+          <TodoItem key={todoId} id={todoId} />
+        ))}
       </ul>
     </section>
   );

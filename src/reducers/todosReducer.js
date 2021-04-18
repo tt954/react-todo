@@ -5,7 +5,7 @@ import {
   createEntityAdapter,
 } from "@reduxjs/toolkit";
 import { todo } from "../api/todoAPI";
-import { filters } from '../reducers/filtersReducer';
+import { filters as Filters } from '../reducers/filtersReducer';
 import { generateRandomColor } from '../utils/helpers';
 
 // createEntityAdapter: gives us an "adapter" object that contains several premade reducer functions
@@ -71,11 +71,10 @@ export default todosSlice.reducer;
 export const {
   selectAll: selectTodos,
   selectById: selectTodoById,
-} = todosAdapter.getSelectors(state => state.todos)
+} = todosAdapter.getSelectors((state) => state.todos);
 
 export const selectTodoIds = createSelector(
-  // First, pass one or more "input selector" functions:
-  selectTodos,
+  selectTodos, // First, pass one or more "input selector" functions
   // Then, an "output selector" that receives all the input results as arguments
   // and returns a final result value
   (todos) => todos.map((todo) => todo.id)
@@ -86,10 +85,10 @@ export const selectFilteredTodos = createSelector(
   state => state.filters, // Second input selector: all filter values 
   (todos, filters) => { // Output selector: receives both values
     const { status, colors } = filters
-    const showAllTodos = status === filters.statuses.All
+    const showAllTodos = status === Filters.statuses.All
     if (showAllTodos && colors.length === 0) return todos
 
-    const completedStatus = status === filters.statuses.Completed
+    const completedStatus = status === Filters.statuses.Completed
     return todos.filter(todo => {
       const statusMatches = showAllTodos || todo.completed === completedStatus
       const colorMatches = colors.length === 0 || colors.includes(todo.color)

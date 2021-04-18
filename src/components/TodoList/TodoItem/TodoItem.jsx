@@ -1,10 +1,14 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
-import { todoDeleted, todoToggled } from "../../../reducers/todosReducer";
+import {
+  selectTodoById,
+  todoDeleted,
+  todoToggled,
+} from "../../../reducers/todosReducer";
 
-const TodoItem = (props) => {
-  const { todo } = props;
+const TodoItem = ({ id }) => {
+  const todo = useSelector((state) => selectTodoById(state, id));
   const dispatch = useDispatch();
 
   const handleToggleCompleted = () => {
