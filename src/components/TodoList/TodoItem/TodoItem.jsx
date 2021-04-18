@@ -1,43 +1,59 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import {
   selectTodoById,
-  todoDeleted,
   todoToggled,
-} from '../../../reducers/todosReducer';
-import { filters } from '../../../reducers/filtersReducer';
-import { capitalize } from '../../../utils/helpers';
+  todoColorSelected,
+  todoDeleted,
+} from "../../../reducers/todosReducer";
+import { filters } from "../../../reducers/filtersReducer";
+import { capitalize } from "../../../utils/helpers";
 
 const TodoItem = ({ id }) => {
   const todo = useSelector((state) => selectTodoById(state, id));
+  const { title, completed, color } = todo
   const dispatch = useDispatch();
 
-  const handleToggleCompleted = () => {
+  const handleCompletedToggle = () => {
     dispatch(todoToggled(todo.id));
   };
+
+  const handleColorChange = (e) => {
+    const color = e.target.value;
+    dispatch(todoColorSelected(id, color))
+  };
+
   const onDelete = () => {
     dispatch(todoDeleted(todo.id));
   };
 
-  const colorOptions = filters.availableColors.map((color) => 
-    <option key={color} value={color}>{capitalize(color)}</option>
-  )
+  const colorOptions = filters.availableColors.map((c) => (
+    <option key={c} value={c}>
+      {capitalize(c)}
+    </option>
+  ));
 
   return (
     <li className="todolist__content-item">
       <div className="segment__label">
         <input
           type="checkbox"
-          checked={todo.completed}
-          onChange={handleToggleCompleted}
+          checked={completed}
+          onChange={handleCompletedToggle}
         />
-        <span>{todo.title}</span>
+        <span>{title}</span>
       </div>
       <div className="segment__buttons">
-        <select name="" id="">
-            <option value=""></option>
-            {colorOptions}
+        <select
+          name=""
+          id=""
+          value={color}
+          style={{ color }}
+          onChange={handleColorChange}
+        >
+          <option value=""></option>
+          {colorOptions}
         </select>
         <button onClick={onDelete}>X</button>
       </div>

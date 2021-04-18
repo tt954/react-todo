@@ -5,31 +5,30 @@ import {
   createEntityAdapter,
 } from "@reduxjs/toolkit";
 import { todo } from "../api/todoAPI";
-import { filters as Filters } from '../reducers/filtersReducer';
-import { generateRandomColor } from '../utils/helpers';
+import { filters as Filters } from "../reducers/filtersReducer";
+import { generateRandomColor } from "../utils/helpers";
 
 // createEntityAdapter: gives us an "adapter" object that contains several premade reducer functions
-// getInitialState: returns an object that looks like { ids: [], entities: {} }, 
+// getInitialState: returns an object that looks like { ids: [], entities: {} },
 // for storing a normalized state of items along with an array of all item IDs
 // getSelectors: generates a standard set of selector functions
-export const todosAdapter = createEntityAdapter()
-const initialState = todosAdapter.getInitialState({ status: 'idle' })
+export const todosAdapter = createEntityAdapter();
+const initialState = todosAdapter.getInitialState({ status: "idle" });
 
 // async thunk action creators
-export const fetchTodos = createAsyncThunk(
-  "todos/fetchTodos",
-  () => todo.getAll().then(response => response) 
+export const fetchTodos = createAsyncThunk("todos/fetchTodos", () =>
+  todo.getAll().then((response) => response)
 );
 
 export const saveNewTodo = createAsyncThunk(
   "todos/createTodo",
   async (newTodo) => {
-    return await todo.post({...newTodo}).then(response => response);
+    return await todo.post({ ...newTodo }).then((response) => response);
   }
 );
 
-// createSlice uses a library called Immer inside. 
-// Immer uses a special JS tool called a Proxy to wrap the data you provide, 
+// createSlice uses a library called Immer inside.
+// Immer uses a special JS tool called a Proxy to wrap the data you provide,
 // and lets you write code that "mutates" that wrapped data.
 // Immer tracks all the changes you've tried to make, and then uses that list of changes to return a safely immutably updated value
 // You can only write "mutating" logic in Redux Toolkit's createSlice and createReducer because they use Immer inside
@@ -37,15 +36,24 @@ const todosSlice = createSlice({
   name: "todos",
   initialState,
   reducers: {
-    todoDeleted: todosAdapter.removeOne,
     todoToggled(state, action) {
-      const todo = state.entities[action.payload]
-      todo.completed = !todo.completed
+      const todo = state.entities[action.payload];
+      todo.completed = !todo.completed;
     },
+    todoColorSelected: {
+      reducer(state, action) {
+        const { todoId, color } = action.payload;
+        state.entities[todoId].color = color;
+      },
+      prepare(todoId, color) {
+        return { payload: { todoId, color } };
+      },
+    },
+    todoDeleted: todosAdapter.removeOne,
   },
   extraReducers: {
     [fetchTodos.pending]: (state, action) => {
-      state.status = "loading"
+      state.status = "loading";
     },
     [fetchTodos.fulfilled]: (state, action) => {
       const newEntities = {};
@@ -61,8 +69,9 @@ const todosSlice = createSlice({
 });
 
 export const {
-  todoDeleted,
   todoToggled,
+  todoColorSelected,
+  todoDeleted,
 } = todosSlice.actions;
 
 export default todosSlice.reducer;
@@ -82,22 +91,23 @@ export const selectTodoIds = createSelector(
 
 export const selectFilteredTodos = createSelector(
   selectTodos, // First input selector: all todos
-  state => state.filters, // Second input selector: all filter values 
-  (todos, filters) => { // Output selector: receives both values
-    const { status, colors } = filters
-    const showAllTodos = status === Filters.statuses.All
-    if (showAllTodos && colors.length === 0) return todos
+  (state) => state.filters, // Second input selector: all filter values
+  (todos, filters) => {
+    // Output selector: receives both values
+    const { status, colors } = filters;
+    const showAllTodos = status === Filters.statuses.All;
+    if (showAllTodos && colors.length === 0) return todos;
 
-    const completedStatus = status === Filters.statuses.Completed
-    return todos.filter(todo => {
-      const statusMatches = showAllTodos || todo.completed === completedStatus
-      const colorMatches = colors.length === 0 || colors.includes(todo.color)
-      return statusMatches && colorMatches
-    })
+    const completedStatus = status === Filters.statuses.Completed;
+    return todos.filter((todo) => {
+      const statusMatches = showAllTodos || todo.completed === completedStatus;
+      const colorMatches = colors.length === 0 || colors.includes(todo.color);
+      return statusMatches && colorMatches;
+    });
   }
-)
+);
 
 export const selectFilteredTodoIds = createSelector(
   selectFilteredTodos, // Frist input: custom memoized selector
-  (filteredTodos) => filteredTodos.map(todo => todo.id)
-)
+  (filteredTodos) => filteredTodos.map((todo) => todo.id)
+);
