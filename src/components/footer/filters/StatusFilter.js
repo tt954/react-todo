@@ -20,8 +20,8 @@ const StatusFilter = ({ value: status }) => {
   });
 
   return (
-    <div>
-      <h3>Filter by Status</h3>
+    <div className="flex-1">
+      <h3 className="text-lg text-center">Filter by Status</h3>
       <ul>{statuses}</ul>
     </div>
   );

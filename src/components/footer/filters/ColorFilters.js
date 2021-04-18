@@ -21,16 +21,16 @@ const ColorFilters = ({ value: colors }) => {
           checked={checked}
           onChange={handleColorFilter}
         />
-        <span className="color-block" style={{ backgroundColor: color }}></span>
+        <span className="inline-block w-6 h-3" style={{ backgroundColor: color }}></span>
         {capitalize(color)}
       </label>
     );
   });
 
   return (
-    <div>
-      <h3>Filter by Color</h3>
-      <form>{renderedColors}</form>
+    <div className="flex-1">
+      <h3 className="text-lg text-center">Filter by Color</h3>
+      <ul className="flex flex-col items-center">{renderedColors}</ul>
     </div>
   );
 };

@@ -11,8 +11,8 @@ import ColorFilters from "./filters/ColorFilters";
 const TodosRemaining = ({ count }) => {
   const suffix = count === 1 ? "" : "s";
   return (
-    <div className="remaining">
-      <h3>Remaining Todos</h3>
+    <div className="flex-1">
+      <h3 className="text-lg text-center">Remaining Todos</h3>
       <p>
         <strong>{count}</strong> item{suffix} left
       </p>
@@ -38,15 +38,15 @@ const Footer = () => {
   };
 
   return (
-    <section className="todo__footer">
-      <div className="actions">
-        <h3>Actions</h3>
+    <section className="todo__footer flex">
+      <div className="flex-1">
+        <h3 className="text-lg text-center">Actions</h3>
         <button onClick={handleMarkAllCompleted}>Mark All Completed</button>
         <button onClick={handleClearCompleted}>Clear Completed</button>
       </div>
       <TodosRemaining count={todosRemaining} />
-      <StatusFilter value={status}/>
-      <ColorFilters value={colors}/>
+      <StatusFilter value={status} />
+      <ColorFilters value={colors} />
     </section>
   );
 };
