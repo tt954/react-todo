@@ -5,12 +5,14 @@ import { Provider } from "react-redux";
 import './index.css';
 import App from './App';
 import store from './store/store';
-import { fetchTodos } from './reducers/todosReducer';
+import { fetchTodos, todosAdapter } from './reducers/todosReducer';
 
 import reportWebVitals from './reportWebVitals';
 
 document.addEventListener('DOMContentLoaded', () => {
-  store.dispatch(fetchTodos());
+  window.store = store
+  window.todosAdapter = todosAdapter
+  store.dispatch(fetchTodos())
 
   ReactDOM.render(
     <Provider store={store}>
@@ -19,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('root')
   );
 })
-
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

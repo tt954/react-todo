@@ -1,5 +1,6 @@
 import {
   createSlice,
+  createSelector,
   createAsyncThunk,
   createEntityAdapter,
 } from "@reduxjs/toolkit";
@@ -10,7 +11,7 @@ import { generateRandomColor } from '../utils/helpers';
 // getInitialState: returns an object that looks like { ids: [], entities: {} }, 
 // for storing a normalized state of items along with an array of all item IDs
 // getSelectors: generates a standard set of selector functions
-const todosAdapter = createEntityAdapter()
+export const todosAdapter = createEntityAdapter()
 const initialState = todosAdapter.getInitialState({ status: 'idle' })
 
 // async thunk action creators
@@ -51,7 +52,7 @@ const todosSlice = createSlice({
         newEntities[todo.id] = todo;
         newEntities[todo.id]["color"] = generateRandomColor();
       });
-      state.entities = newEntities;
+      todosAdapter.setAll(state, newEntities);
       state.status = "idle";
     },
     [saveNewTodo.fulfilled]: todosAdapter.addOne,
@@ -64,3 +65,17 @@ export const {
 } = todosSlice.actions;
 
 export default todosSlice.reducer;
+
+// selectors
+export const {
+  selectAll: selectTodos,
+  selectById: selectTodoById,
+} = todosAdapter.getSelectors(state => state.todos)
+
+export const selectTodoIds = createSelector(
+  // First, pass one or more "input selector" functions:
+  selectTodos,
+  // Then, an "output selector" that receives all the input results as arguments
+  // and returns a final result value
+  (todos) => todos.map((todo) => todo.id)
+);
