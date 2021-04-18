@@ -1,11 +1,13 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import {
   selectTodoById,
   todoDeleted,
   todoToggled,
-} from "../../../reducers/todosReducer";
+} from '../../../reducers/todosReducer';
+import { filters } from '../../../reducers/filtersReducer';
+import { capitalize } from '../../../utils/helpers';
 
 const TodoItem = ({ id }) => {
   const todo = useSelector((state) => selectTodoById(state, id));
@@ -18,15 +20,27 @@ const TodoItem = ({ id }) => {
     dispatch(todoDeleted(todo.id));
   };
 
+  const colorOptions = filters.availableColors.map((color) => 
+    <option key={color} value={color}>{capitalize(color)}</option>
+  )
+
   return (
     <li className="todolist__content-item">
-      <input
-        type="checkbox"
-        checked={todo.completed}
-        onChange={handleToggleCompleted}
-      ></input>
-      <span>{todo.title}</span>
-      <button onClick={onDelete}>X</button>
+      <div className="segment__label">
+        <input
+          type="checkbox"
+          checked={todo.completed}
+          onChange={handleToggleCompleted}
+        />
+        <span>{todo.title}</span>
+      </div>
+      <div className="segment__buttons">
+        <select name="" id="">
+            <option value=""></option>
+            {colorOptions}
+        </select>
+        <button onClick={onDelete}>X</button>
+      </div>
     </li>
   );
 };

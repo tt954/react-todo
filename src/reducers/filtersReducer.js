@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const availableColors = ["Red", "Yellow", "Green", "Blue", "Orange", "Purple"]
+const availableColors = ["green", "blue", "orange", "purple", "red"];
 const priorities = ['low', 'medium', 'high']
 const statuses = { All: "all", Active: "active", Completed: "completed" }
 
