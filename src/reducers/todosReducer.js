@@ -5,6 +5,7 @@ import {
   createEntityAdapter,
 } from "@reduxjs/toolkit";
 import { todo } from "../api/todoAPI";
+import { filters } from '../reducers/filtersReducer';
 import { generateRandomColor } from '../utils/helpers';
 
 // createEntityAdapter: gives us an "adapter" object that contains several premade reducer functions
@@ -79,3 +80,25 @@ export const selectTodoIds = createSelector(
   // and returns a final result value
   (todos) => todos.map((todo) => todo.id)
 );
+
+export const selectFilteredTodos = createSelector(
+  selectTodos, // First input selector: all todos
+  state => state.filters, // Second input selector: all filter values 
+  (todos, filters) => { // Output selector: receives both values
+    const { status, colors } = filters
+    const showAllTodos = status === filters.statuses.All
+    if (showAllTodos && colors.length === 0) return todos
+
+    const completedStatus = status === filters.statuses.Completed
+    return todos.filter(todo => {
+      const statusMatches = showAllTodos || todo.completed === completedStatus
+      const colorMatches = colors.length === 0 || colors.includes(todo.color)
+      return statusMatches && colorMatches
+    })
+  }
+)
+
+export const selectFilteredTodoIds = createSelector(
+  selectFilteredTodos, // Frist input: custom memoized selector
+  (filteredTodos) => filteredTodos.map(todo => todo.id)
+)
