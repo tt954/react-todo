@@ -1,6 +1,10 @@
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { selectTodos } from '../../reducers/todosReducer'
+import {
+  selectTodos,
+  allTodosCompleted,
+  completedTodosCleared,
+} from "../../reducers/todosReducer";
 import StatusFilter from './filters/StatusFilter'
 
 const TodosRemaining = ({ count }) => {
@@ -13,18 +17,28 @@ const TodosRemaining = ({ count }) => {
   );
 }
 
-const Footer = (props) => {
+const Footer = () => {
+  const dispatch = useDispatch()
+
   const todosRemaining = useSelector(state => {
     const uncompleted = selectTodos(state).filter(todo => !todo.completed)
     return uncompleted.length
   })
 
+  const handleMarkAllCompleted = () => {
+    dispatch(allTodosCompleted())
+  }
+
+  const handleClearCompleted = () => {
+    dispatch(completedTodosCleared())
+  }
+
   return (
     <section className="todo__footer">
       <div className="actions">
         <h3>Actions</h3>
-        <button>Mark All Completed</button>
-        <button>Clear Completed</button>
+        <button onClick={handleMarkAllCompleted}>Mark All Completed</button>
+        <button onClick={handleClearCompleted}>Clear Completed</button>
       </div>
       <TodosRemaining count={todosRemaining}/>
       <StatusFilter />

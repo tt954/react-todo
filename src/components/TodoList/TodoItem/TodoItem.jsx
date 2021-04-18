@@ -16,7 +16,7 @@ const TodoItem = ({ id }) => {
   const dispatch = useDispatch();
 
   const handleCompletedToggle = () => {
-    dispatch(todoToggled(todo.id));
+    dispatch(todoToggled(id));
   };
 
   const handleColorChange = (e) => {
@@ -25,7 +25,7 @@ const TodoItem = ({ id }) => {
   };
 
   const onDelete = () => {
-    dispatch(todoDeleted(todo.id));
+    dispatch(todoDeleted(id));
   };
 
   const colorOptions = filters.availableColors.map((c) => (

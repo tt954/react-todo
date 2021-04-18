@@ -6,7 +6,6 @@ const StatusFilter = (props) => {
   const dispatch = useDispatch();
 
   const handleStatusChange = (value) => {
-      console.log(value)
     dispatch(statusFilterChanged(value));
   };
 
