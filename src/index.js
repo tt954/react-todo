@@ -6,11 +6,13 @@ import './index.css';
 import App from './App';
 import store from './store/store';
 import { fetchTodos } from './reducers/todosReducer';
+import { colorFilterChanged } from './reducers/filtersReducer';
 
 import reportWebVitals from './reportWebVitals';
 
 document.addEventListener('DOMContentLoaded', () => {
   window.store = store
+  window.colorFilterChanged = colorFilterChanged
   store.dispatch(fetchTodos())
 
   ReactDOM.render(
