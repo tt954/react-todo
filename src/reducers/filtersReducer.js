@@ -2,17 +2,16 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const availableColors = ["Red", "Yellow", "Green", "Blue", "Orange", "Purple"]
 const priorities = ['low', 'medium', 'high']
+const statuses = { All: "all", Active: "active", Completed: "completed" }
 
 export const filters = {
     availableColors,
     priorities,
-    All: 'all',
-    Active: 'active',
-    Completed: 'completed',
+    statuses,
 }
 
 const initialState = {
-    status: filters.All,
+    status: filters.statuses.All,
     colors: []
 }
 

@@ -1,5 +1,7 @@
 import { useSelector } from 'react-redux'
+
 import { selectTodos } from '../../reducers/todosReducer'
+import StatusFilter from './filters/StatusFilter'
 
 const TodosRemaining = ({ count }) => {
   const suffix = count === 1 ? '' : 's'
@@ -25,6 +27,7 @@ const Footer = (props) => {
         <button>Clear Completed</button>
       </div>
       <TodosRemaining count={todosRemaining}/>
+      <StatusFilter />
     </section>
   );
 };
