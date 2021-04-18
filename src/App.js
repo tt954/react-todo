@@ -1,9 +1,9 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
 
-import TodoForm from './components/TodoForm/TodoForm';
-import TodoList from './components/TodoList/TodoList';
-import TodoFilters from './components/TodoFilters/TodoFilters';
+import TodoForm from "./components/todoform/TodoForm";
+import TodoList from "./components/todolist/TodoList";
+import Footer from "./components/footer/Footer";
 
 const App = () => {
   return (
@@ -17,14 +17,12 @@ const App = () => {
       </header>
       <main className="content">
         <h2>Todos</h2>
-        <section>
-          <TodoForm />
-          <TodoList/>
-          <TodoFilters />
-        </section>
+        <TodoForm />
+        <TodoList />
+        <Footer />
       </main>
     </div>
-  )
-}
+  );
+};
 
 export default App;

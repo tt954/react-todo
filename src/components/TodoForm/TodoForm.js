@@ -31,15 +31,18 @@ const TodoForm = (props) => {
   let loader = isLoading ? 'loading...' : null
 
   return (
-    <form className="todoform" onSubmit={handleSubmit}>
-      <input
-        placeholder={placeholder}
-        value={text}
-        onChange={update}
-      ></input>
-      {loader}
-      <button type="submit">+</button>
-    </form>
+    <section className="todo__form">
+      <form className="todoform" onSubmit={handleSubmit}>
+        <input
+          placeholder={placeholder}
+          value={text}
+          onChange={update}
+          disabled={isLoading}
+        ></input>
+        {loader}
+        <button type="submit">+</button>
+      </form>
+    </section>
   );
 };
 
