@@ -1,6 +1,7 @@
+import { filters } from '../reducers/filtersReducer'
+
 export const generateRandomColor = () => {
-    const colors = ["Red", "Yellow", "Green", "Blue", "Orange", "Purple"];
-    return colors[[Math.floor(Math.random() * colors.length)]];
+    return filters.availableColors[[Math.floor(Math.random() * filters.availableColors.length)]]
 }
 
 export const capitalize = s => s[0].toUpperCase + s.slice(1) 
