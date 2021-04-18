@@ -36,10 +36,12 @@ const todosSlice = createSlice({
   name: "todos",
   initialState,
   reducers: {
+    // toggle todo completion status (completed: true || false)
     todoToggled(state, action) {
       const todo = state.entities[action.payload];
       todo.completed = !todo.completed;
     },
+    // select color (a filter option) for each todo
     todoColorSelected: {
       reducer(state, action) {
         const { todoId, color } = action.payload;
@@ -50,6 +52,19 @@ const todosSlice = createSlice({
       },
     },
     todoDeleted: todosAdapter.removeOne,
+    // mark all todos as completed: true
+    allTodosCompleted(state, action) {
+      Object.values(state.entities).forEach((todo) => {
+        todo.completed = true;
+      });
+    },
+    // delete all completed todos
+    completedTodosCleared(state, action) {
+      const completedIds = Object.values(state.entities)
+        .filter((todo) => todo.completed)
+        .map((todo) => todo.id);
+      todosAdapter.removeMany(state, completedIds);
+    },
   },
   extraReducers: {
     [fetchTodos.pending]: (state, action) => {
@@ -72,6 +87,8 @@ export const {
   todoToggled,
   todoColorSelected,
   todoDeleted,
+  allTodosCompleted,
+  completedTodosCleared,
 } = todosSlice.actions;
 
 export default todosSlice.reducer;
