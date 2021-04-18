@@ -8,9 +8,12 @@ const TodoForm = (props) => {
   const [color, setColor] = useState(null)
   const dispatch = useDispatch()
 
+  const update = (e) => setText(e.target.value);
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     const title = text.trim()
+    // creates newTodo from form values
     const newTodo = {
       title, 
       completed: false,
@@ -20,8 +23,6 @@ const TodoForm = (props) => {
     
     setText('')
   };
-
-  const update = (e) => setText(e.target.value);
 
   return (
     <form className="todoform" onSubmit={handleSubmit}>
