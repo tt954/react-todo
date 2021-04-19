@@ -9,7 +9,7 @@ const TodoList = () => {
   const loadingStatus = useSelector(state => state.todos.status)
 
   return (
-    <section className="todo__content">
+    <section className="h-96">
       <ul>
         {todoIds.map((todoId) => (
           <TodoItem key={todoId} id={todoId} />

@@ -6,7 +6,7 @@ import Footer from "./components/footer/Footer";
 
 const App = () => {
   return (
-    <div className="App">
+    <div className="px-20 h-screen w-screen">
       <header className="header">
         <h1 className="header__heading">Done</h1>
         <nav>
@@ -14,7 +14,7 @@ const App = () => {
           <a href="/todolist">Main List</a>
         </nav>
       </header>
-      <main className="content">
+      <main className="px-10 w-full rounded-xl shadow-lg bg-white">
         <h2>Todos</h2>
         <TodoForm />
         <TodoList />

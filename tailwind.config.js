@@ -12,9 +12,10 @@ module.exports = {
     },
     colors: {
       gray: colors.coolGray,
-      blue: colors.lightBlue,
-      red: colors.rose,
-      pink: colors.fuchsia,
+      blue: colors.blue,
+      indigo: colors.indigo,
+      red: colors.red,
+      white: colors.white,
     },
     fontFamily: {
       sans: ["Graphik", "sans-serif"],
