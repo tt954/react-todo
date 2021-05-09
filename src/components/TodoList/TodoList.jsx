@@ -6,7 +6,6 @@ import './todo-list.css';
 
 const TodoList = () => {
   const todoIds = useSelector(selectFilteredTodoIds)
-  const loadingStatus = useSelector(state => state.todos.status)
 
   return (
     <section className="h-96">

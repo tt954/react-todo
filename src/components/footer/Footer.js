@@ -12,7 +12,7 @@ const TodosRemaining = ({ count }) => {
   const suffix = count === 1 ? "" : "s";
   return (
     <div className="flex-1">
-      <h3 className="footer-heading">Remaining Todos</h3>
+      <h3 className="heading">Remaining Todos</h3>
       <p className="text-center">
         <strong>{count}</strong> item{suffix} left
       </p>
@@ -39,8 +39,8 @@ const Footer = () => {
 
   return (
     <section className="flex space-x-5 pt-4 pb-8 border-t border-gray">
-      <div className="flex-1">
-        <h3 className="footer-heading">Actions</h3>
+      <div className="flex-1 flex flex-col">
+        <h3 className="heading">Actions</h3>
         <button className="btn-blue mb-2" onClick={handleMarkAllCompleted}>
           Mark All Completed
         </button>

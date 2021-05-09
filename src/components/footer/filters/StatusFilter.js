@@ -20,8 +20,8 @@ const StatusFilter = ({ value: status }) => {
   });
 
   return (
-    <div className="flex-1 flex-col items-center">
-      <h3 className="footer-heading">Filter by Status</h3>
+    <div className="flex-1 flex flex-col">
+      <h3 className="heading">Filter by Status</h3>
       <ul className="px-10">{statuses}</ul>
     </div>
   );

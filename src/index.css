@@ -2,15 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
-    .btn-blue {
-        @apply w-full py-2 px-4 bg-blue-400 text-sm text-white rounded-lg hover:bg-blue-500 focus:outline-none;
-    }
-    .footer-heading {
-        @apply text-lg text-center font-semibold mb-3;
-    }
-    .selected {
-        @apply border-2 border-red-500 focus:outline-none; 
-    }
+.App {
+  background-image: url('https://images.unsplash.com/photo-1579546929662-711aa81148cf?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
+@layer components {
+  .btn-blue {
+    @apply py-2 px-4 bg-blue-500 text-sm text-white rounded-full hover:bg-blue-400 focus:outline-none;
+  }
+  .heading {
+    @apply text-lg text-center font-semibold mb-3;
+  }
+  .selected {
+    @apply border-2 border-red-500 focus:outline-none;
+  }
+  .centered {
+    @apply flex items-center justify-center;
+  }
+}
