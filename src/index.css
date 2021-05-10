@@ -3,14 +3,14 @@
 @tailwind utilities;
 
 .App {
-  background-image: url('https://images.unsplash.com/photo-1579546929662-711aa81148cf?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80');
+  background-image: url('https://images.unsplash.com/photo-1569982175971-d92b01cf8694?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80');
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 @layer components {
   .btn-blue {
-    @apply py-2 px-4 bg-blue-500 text-sm text-white rounded-full hover:bg-blue-400 focus:outline-none;
+    @apply bg-indigo-500 text-white active:bg-indigo-600 font-bold uppercase text-xs px-4 py-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150;
   }
   .heading {
     @apply text-lg text-center font-semibold mb-3;
@@ -20,5 +20,8 @@
   }
   .centered {
     @apply flex items-center justify-center;
+  }
+  .todo-item {
+    @apply flex justify-between py-4 border px-3 w-full;
   }
 }

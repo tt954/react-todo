@@ -38,7 +38,7 @@ const Footer = () => {
   };
 
   return (
-    <section className="flex space-x-5 pt-4 pb-8 border-t border-gray">
+    <footer className="flex space-x-5 pt-4 pb-8 border-t border-gray">
       <div className="flex-1 flex flex-col">
         <h3 className="heading">Actions</h3>
         <button className="btn-blue mb-2" onClick={handleMarkAllCompleted}>
@@ -51,7 +51,7 @@ const Footer = () => {
       <TodosRemaining count={todosRemaining} />
       <StatusFilter value={status} />
       <ColorFilters value={colors} />
-    </section>
+    </footer>
   );
 };
 

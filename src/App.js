@@ -6,16 +6,11 @@ import Footer from "./components/footer/Footer";
 
 const App = () => {
   return (
-    <div className="App px-20 h-screen w-screen">
-      <header className="header">
-        <h1 className="header__heading">Done</h1>
-        <nav>
-          <a href="/dashboard">Dashboard</a>
-          <a href="/todolist">Main List</a>
-        </nav>
-      </header>
-      <main className="px-10 w-full rounded-xl shadow-lg bg-white">
-        <h2 className="heading">Todos</h2>
+    <div className="App py-10 px-20 flex justify-center">
+      <main className="w-3/4 px-10 rounded-xl shadow-lg bg-white">
+        <header className="">
+          <h1 className="heading pt-6">TODO</h1>
+        </header>
         <TodoForm />
         <TodoList />
         <Footer />

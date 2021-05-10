@@ -24,7 +24,10 @@ module.exports = {
     extend: {},
   },
   variants: {
-    extend: {},
+    extend: {
+      backgroundColor: ["checked", "active"],
+      borderColor: ["checked"],
+    },
   },
   plugins: [],
 };
