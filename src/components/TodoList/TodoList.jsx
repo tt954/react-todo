@@ -8,7 +8,7 @@ const TodoList = () => {
   const todoIds = useSelector(selectFilteredTodoIds)
 
   return (
-    <section className="h-96 overflow-y-scroll">
+    <section className="h-80 overflow-y-scroll">
       <ul>
         {todoIds.map((todoId) => (
           <TodoItem key={todoId} id={todoId} />

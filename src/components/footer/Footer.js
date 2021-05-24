@@ -38,7 +38,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="flex space-x-5 pt-4 pb-8 border-t border-gray">
+    <footer className="flex flex-wrap space-x-5 pt-4 pb-8 border-t border-gray">
       <div className="flex-1 flex flex-col">
         <h3 className="heading">Actions</h3>
         <button className="btn-blue mb-2" onClick={handleMarkAllCompleted}>

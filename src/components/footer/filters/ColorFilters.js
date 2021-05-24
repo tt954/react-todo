@@ -10,7 +10,7 @@ const ColorFilters = ({ value: colors }) => {
     const checked = colors.includes(color);
     const handleColorFilter = () => {
       const changeType = checked ? "removed" : "added";
-      dispatch(colorFilterChanged(color, changeType))
+      dispatch(colorFilterChanged(color, changeType));
     };
 
     return (
@@ -21,7 +21,10 @@ const ColorFilters = ({ value: colors }) => {
           checked={checked}
           onChange={handleColorFilter}
         />
-        <span className="inline-block w-6 h-3" style={{ backgroundColor: color }}></span>
+        <span
+          className="inline-block w-6 h-3"
+          style={{ backgroundColor: color }}
+        ></span>
         {capitalize(color)}
       </label>
     );

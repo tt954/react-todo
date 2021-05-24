@@ -14,7 +14,7 @@ const StatusFilter = ({ value: status }) => {
     const selected = value === status ? 'selected' : ''
     return (
       <li key={value}>
-        <button className={selected} onClick={() => handleStatusChange(value)}>{key}</button>
+        <button className={`${selected} w-full rounded-full py-0.5 mb-0.5`} onClick={() => handleStatusChange(value)}>{key}</button>
       </li>
     );
   });
@@ -22,7 +22,7 @@ const StatusFilter = ({ value: status }) => {
   return (
     <div className="flex-1 flex flex-col">
       <h3 className="heading">Filter by Status</h3>
-      <ul className="px-10">{statuses}</ul>
+      <ul>{statuses}</ul>
     </div>
   );
 };
